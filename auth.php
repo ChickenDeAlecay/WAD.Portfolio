@@ -4,7 +4,7 @@
     if (isset($_POST['username']) && isset($_POST['password']))
     {
         //This will include our 'connect.php' file so we can access our database connection.
-        include("connect.php");
+        include("_connect.php");
 
         //These two variables with contain the username and the password that the user entered on the login page.
         $username = $_POST['username'];
