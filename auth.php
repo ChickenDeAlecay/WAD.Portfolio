@@ -16,7 +16,10 @@
         $password = mysqli_real_escape_string($connect, $_POST['password']);
 
         //This is the SQL query that we are going to use to ensure that the username and password are correct.
-        $SQL = "SELECT * FROM `users` WHERE `username` = $username AND `password` = $password";
+        //$SQL = "SELECT * FROM `users` WHERE `username` = $username AND `password` = $password";
+        $SQL = $connect->prepare("SELECT * FROM `users` WHERE `username` = (firstname) AND `password` = (password) VALUES (?, ?)");
+        $SQL->bind_param("ss", $username, $password);
+        $SQL->execute();
 
         //This will run the query in our database using the database connection from 'connect.php'.
         $query = mysqli_query($connect, $SQL);
