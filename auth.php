@@ -3,7 +3,7 @@
     //Check that the user has provided both a username and a password.
     if (isset($_POST['username']) && isset($_POST['password']))
     {
-        //This will include our 'connect.php' file so we can access our database connection.
+        //This will include our '_connect.php' file so we can access our database connection.
         include("_connect.php");
 
         //These two variables with contain the username and the password that the user entered on the login page.
@@ -16,7 +16,7 @@
         $password = mysqli_real_escape_string($connect, $_POST['password']);
 
         //This is the SQL query that we are going to use to ensure that the username and password are correct.
-        $SQL = "SELECT * FROM `UserDetails` WHERE `username` = $username AND `password` = $password";
+        $SQL = "SELECT * FROM `UserDetails` WHERE username = '$username' AND password = '$password'";
         //$SQL = $connect->prepare("SELECT * FROM `UserDetails` WHERE `username` = (firstname) AND `password` = (passord) VALUES (?, ?)");
         //$SQL->bind_param("ss", $username, $password);
     
