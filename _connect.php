@@ -7,4 +7,4 @@ $password = "Zxj_c8267";
 
 $connect = mysqli_connect($host, $username, $password, $database);
 
-if (!$connect) die("8008135");
+if (!$connect) die("connection failed");

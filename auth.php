@@ -31,6 +31,8 @@
             $row = mysqli_fetch_assoc($query);
 
             if($row['username'] == $username && $row['password'] == $password){
+
+                session_start();
                 //We are using sessions to store information, so we can access them across multiple pages.
                 //All session data is stored on the server and cannot be modified like a cookie.
                 $_SESSION['username'] = $row['username'];
@@ -43,15 +45,25 @@
 
                 //Redirect the authenticated user to the index page.
                 header("Location: homepage.php");
-                exit();
+            }else{
+                //If the credentials were not entered or incorrect,
+                //we will send the user back to the login page with an error message.
+                $errorMessage = urlencode("Invalid Username or Password");
+                header("Location: auth.php?msg=" . $errorMessage);
             }
             
+        }else{
+            //If the credentials were not entered or incorrect,
+            //we will send the user back to the login page with an error message.
+            $errorMessage = urlencode("Invalid Username or Password");
+            header("Location: auth.php?msg=" . $errorMessage);
         }
-    }
-
+    }else{
     //If the credentials were not entered or incorrect,
     //we will send the user back to the login page with an error message.
-    $errorMessage = urlencode("Invalid Username or Password");
+    $errorMessage = urlencode("Username or Password not provided");
     header("Location: auth.php?msg=" . $errorMessage);
+    }
+
 
 ?>

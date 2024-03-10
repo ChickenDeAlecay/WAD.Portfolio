@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if(isset($_SESSION['userID']) && isset($_SESSION['firstName'])){
 
     ?>
@@ -19,8 +21,6 @@ if(isset($_SESSION['userID']) && isset($_SESSION['firstName'])){
 
 <?php
 
-}
-
-else{
+}else{
     header("Location: index.php");
 }
