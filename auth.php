@@ -34,7 +34,7 @@
             $_SESSION['username'] = $username;
 
             //Redirect the authenticated user to the index page.
-            header("Location: index.php");
+            header("Location: homepage.php");
             die();
         }
     }
@@ -42,6 +42,6 @@
     //If the credentials were not entered or incorrect,
     //we will send the user back to the login page with an error message.
     $errorMessage = urlencode("Invalid Username or Password");
-    header("Location: login.php?msg=" . $errorMessage);
+    header("Location: auth.php?msg=" . $errorMessage);
 
 ?>
