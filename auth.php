@@ -49,20 +49,26 @@
                 //If the credentials were not entered or incorrect,
                 //we will send the user back to the login page with an error message.
                 $errorMessage = urlencode("Invalid Username or Password");
-                header("Location: auth.php?msg=" . $errorMessage);
+                header("Location: index.php?msg=" . $errorMessage);
+
+                die();
             }
             
         }else{
             //If the credentials were not entered or incorrect,
             //we will send the user back to the login page with an error message.
             $errorMessage = urlencode("Invalid Username or Password");
-            header("Location: auth.php?msg=" . $errorMessage);
+            header("Location: index.php?msg=" . $errorMessage);
+
+            die();
         }
     }else{
     //If the credentials were not entered or incorrect,
     //we will send the user back to the login page with an error message.
     $errorMessage = urlencode("Username or Password not provided");
-    header("Location: auth.php?msg=" . $errorMessage);
+    header("Location: index.php?msg=" . $errorMessage);
+
+    die();
     }
 
 
