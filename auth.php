@@ -28,14 +28,24 @@
         //returned to us from the database using the 'mysqli_num_rows()' function.
         if (mysqli_num_rows($query) == 1)
         {
-            //We are using sessions to store information, so we can access them across multiple pages.
-            //All session data is stored on the server and cannot be modified like a cookie.
-            session_start();
-            $_SESSION['username'] = $username;
+            $row = mysqli_fetch_assoc($query);
 
-            //Redirect the authenticated user to the index page.
-            header("Location: homepage.php");
-            die();
+            if($row['username'] == $username && $row['password'] == $password){
+                //We are using sessions to store information, so we can access them across multiple pages.
+                //All session data is stored on the server and cannot be modified like a cookie.
+                $_SESSION['username'] = $row['username'];
+
+                $_SESSION['firstName'] = $row['firstName'];
+
+                $_SESSION['lastName'] = $row['lastName'];
+
+                $_SESSION['userID'] = $row['userID'];
+
+                //Redirect the authenticated user to the index page.
+                header("Location: homepage.php");
+                exit();
+            }
+            
         }
     }
 
