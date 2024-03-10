@@ -16,7 +16,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['firstName'])){
    <body>
     <h1>Hello, <?php echo $_SESSION['firstName'];?></h1>
     <a href="logout.php">Logout</a>
-   </body>
+    </body>
 </html>
 
 <?php
