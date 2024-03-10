@@ -42,9 +42,13 @@
                 $_SESSION['lastName'] = $row['lastName'];
 
                 $_SESSION['userID'] = $row['userID'];
-
+                
+                if($row['isAdmin'] == true){
+                    header("Location: admindashboard.php");
+                }else{
                 //Redirect the authenticated user to the index page.
                 header("Location: homepage.php");
+                }
             }else{
                 //If the credentials were not entered or incorrect,
                 //we will send the user back to the login page with an error message.
