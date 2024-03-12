@@ -40,7 +40,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
 </nav>
 
 <body>
-  <form action="./auth.php" method="post">
+  <form action="./adduser.php" method="post">
     <div class="mb-3 lg-2">
       <label for="newFirstName" class="form-label">First Name</label>
       <input type="text" class="form-control" name="newFirstName">
@@ -74,6 +74,10 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
     <div class="mb-3 lg-2">
       <label for="confirmPassword" class="form-label">Confirm Password</label>
       <input type="password" class="form-control" name="password">
+    </div>
+    <div class="mb-3 form-check">
+      <label for="checkAdmin" class="form-check-label">Check me out</label>
+      <input type="checkbox" class="form-check-input" id="checkAdmin">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
