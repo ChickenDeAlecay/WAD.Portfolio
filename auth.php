@@ -35,14 +35,18 @@
                 session_start();
                 //We are using sessions to store information, so we can access them across multiple pages.
                 //All session data is stored on the server and cannot be modified like a cookie.
+                $_SESSION['userID'] = $row['userID'];
+
                 $_SESSION['username'] = $row['username'];
+
+                $_SESSION['email'] = $row['email'];
 
                 $_SESSION['firstName'] = $row['firstName'];
 
                 $_SESSION['lastName'] = $row['lastName'];
 
-                $_SESSION['userID'] = $row['userID'];
-                
+                $_SESSION['jobTitle'] = $row['jobTitle'];
+
                 if($row['isAdmin'] == true){
                     header("Location: admindashboard.php");
                 }else{
