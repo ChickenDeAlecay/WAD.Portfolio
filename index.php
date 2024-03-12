@@ -9,11 +9,11 @@
 
 <body>
   <form action="./auth.php" method="post">
-    <div class="mb-3">
+    <div class="mb-3 lg-2">
       <label for="exampleInputEmail1" class="form-label">Username</label>
       <input type="text" class="form-control" name="username">
     </div>
-    <div class="mb-3">
+    <div class="mb-3 lg-2">
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input type="password" class="form-control" name="password">
     </div>
