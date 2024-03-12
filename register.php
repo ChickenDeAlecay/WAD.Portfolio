@@ -76,7 +76,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
       <input type="password" class="form-control" name="password">
     </div>
     <div class="mb-3 form-check">
-      <label for="checkAdmin" class="form-check-label">Check me out</label>
+      <label for="checkAdmin" class="form-check-label">User is Admin</label>
       <input type="checkbox" class="form-check-input" id="checkAdmin">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
