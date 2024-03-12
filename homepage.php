@@ -26,7 +26,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
           <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Courses</a>
+          <a class="nav-link" href="courses.php">Courses</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="logout.php">Logout</a>
@@ -47,5 +47,5 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
 <?php
 
 }else{
-    header("Location: index.php");
+    header("Location: login.php");
 }
