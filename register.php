@@ -26,6 +26,9 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
           <a class="nav-link active" aria-current="page" href="admindashboard.php">Home</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="courses.php">Courses</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="registernewuser.php">Register User</a>
         </li>
         <li class="nav-item">
@@ -40,6 +43,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
 </nav>
 
 <body>
+  <div class="container">
   <form action="./adduser.php" method="post">
     <div class="mb-3 lg-2">
       <label for="newFirstName" class="form-label">First Name</label>
@@ -55,7 +59,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
     </div>
     <div class="mb-3">
     <label for="jobTitle" class="form-label">Job Title</label>
-    <input class="form-control" list="jobTitles" id="newJobtitle" placeholder="Type to search...">
+    <input class="form-control" list="jobTitles" name="newJobTitle" placeholder="Type to search...">
     <datalist id="jobTitles">
         <option value="Project Manager">
         <option value="HR">
@@ -77,11 +81,12 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
     </div>
     <div class="mb-3 form-check">
       <label for="checkAdmin" class="form-check-label">User is Admin</label>
-      <input type="checkbox" class="form-check-input" id="checkAdmin">
+      <input type="checkbox" class="form-check-input" name="checkAdmin">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</div>
 </body>
 
 <?php

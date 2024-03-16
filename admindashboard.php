@@ -26,6 +26,9 @@ if(isset($_SESSION['userID']) && isset($_SESSION['firstName'])){
             <a class="nav-link active" aria-current="page" href="admindashboard.php">Home</a>
             </li>
             <li class="nav-item">
+            <a class="nav-link" href="courses.php">Courses</a>
+            </li>
+            <li class="nav-item">
             <a class="nav-link" href="register.php">Register User</a>
             </li>
             <li class="nav-item">
