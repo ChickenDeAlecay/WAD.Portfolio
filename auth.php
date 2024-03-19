@@ -1,10 +1,28 @@
 <?php
 
+    //This will include our '_connect.php' file so we can access our database connection.
+    require_once("_connect.php");
+
     //Check that the user has provided both a username and a password.
-    if (isset($_POST['username']) && isset($_POST['password']))
+    if (!isset($_POST['username']) || !isset($_POST['password']))
     {
-        //This will include our '_connect.php' file so we can access our database connection.
-        include("_connect.php");
+        //If the credentials were not entered or incorrect,
+        //we will send the user back to the login page with an error message.
+        $errorMessage = urlencode("Username or Password not provided");
+        header("Location: index.php?msg=" . $errorMessage);
+        die();
+    }
+
+    $captcha = $_POST['token'];
+    $secretKey = '6LcfI54pAAAAAEfZArTIEPY7L1hUq8TKTX3M_134';
+    $reCAPTCHA = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha)));
+
+    // var_dump($reCAPTCHA);
+
+    if ($reCAPTCHA->score <= 0.5)
+    {
+        die("You are a bot!");
+    }
 
         //These two variables with contain the username and the password that the user entered on the login page.
         $username = $_POST['username'];
@@ -44,12 +62,13 @@
 
                 $_SESSION['jobTitle'] = $row['jobTitle'];
 
-                if($row['isAdmin'] == true){
-                    header("Location: admindashboard.php");
-                }else{
-                //Redirect the authenticated user to the index page.
-                header("Location: homepage.php");
-                }
+                // if($row['isAdmin'] == true){
+                //     header("Location: admindashboard.php");
+                // }else{
+                // //Redirect the authenticated user to the index page.
+                // header("Location: homepage.php");
+                // }
+                echo true;
             }else{
                 //If the credentials were not entered or incorrect,
                 //we will send the user back to the login page with an error message.
@@ -67,14 +86,6 @@
 
             die();
         }
-    }else{
-    //If the credentials were not entered or incorrect,
-    //we will send the user back to the login page with an error message.
-    $errorMessage = urlencode("Username or Password not provided");
-    header("Location: index.php?msg=" . $errorMessage);
-
-    die();
-    }
 
 
 ?>
