@@ -62,6 +62,8 @@
 
                 $_SESSION['jobTitle'] = $row['jobTitle'];
 
+                $_SESSION['isAdmin'] = $row['isAdmin'];
+
                 // if($row['isAdmin'] == true){
                 //     header("Location: admindashboard.php");
                 // }else{
