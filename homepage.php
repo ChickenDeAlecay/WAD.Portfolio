@@ -2,9 +2,9 @@
 
 session_start();
 
-if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
+if(isset($_SESSION['userID'])){
 
-    if($_SESSION['IsAdmin'] == false){
+    if($_SESSION['IsAdmin'] == 0){
     ?>
 
     <!DOCTYPE html>
@@ -27,9 +27,6 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
               <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="courses.php">Courses</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="logout.php">Logout</a>
             </li>
           </ul>
@@ -39,10 +36,6 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
         </div>
       </div>
     </nav>
-
-      <body>
-        <h2>Hello, <?php echo $_SESSION['firstName'];?></h2>
-        </body>
     </html>
 
 <?php
@@ -67,10 +60,7 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
           <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="admindashboard.php">Home</a>
-              </li>
-              <li class="nav-item">
-              <a class="nav-link" href="courses.php">Courses</a>
+              <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
               </li>
               <li class="nav-item">
               <a class="nav-link" href="register.php">Register User</a>
@@ -84,15 +74,46 @@ if(isset($_SESSION['userID']) && isset($_SESSION['username'])){
           </span>
           </div>
       </div>
-      </nav>
-  
-     <body>    
-      <h2>Hello, <?php echo $_SESSION['firstName'];?></h2>
-      </body>
+    </nav>
   </html>
 
   <?php
 
     }}
 
+    // Retrieve Course Data
+    $userID = $_SESSION['userID'];
+    $sql = "SELECT courseID FROM RelationalTable WHERE userID = $userID";
+    $stmt = $connect->prepare($sql);
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    $courseIDs = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    // Populate a 2D Array
+    $courses = [];
+    foreach ($courseIDs as $courseID) {
+        $sql = "SELECT * FROM courses WHERE courseID = $courseID";
+        $stmt = $connect->prepare($sql);
+        $stmt->bindParam(':courseID', $courseID);
+        $stmt->execute();
+        $course = $stmt->fetch(PDO::FETCH_ASSOC);
+        $courses[] = $course;
+    }
+
     ?>
+
+    <html>
+      <body>    
+        <h2>Hello, <?php echo $_SESSION['firstName'];?></h2>
+        <div class="container px-4 text-center">
+          <div class="row gx-5">
+            <div class="col">
+            <div class="p-3">Custom column padding</div>
+            </div>
+            <div class="col">
+              <div class="p-3">Custom column padding</div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>

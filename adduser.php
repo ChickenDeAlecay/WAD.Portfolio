@@ -13,7 +13,12 @@ if(!empty($_POST['newFirstName']) && !empty($_POST['newFirstName']) && !empty($_
         $email = $_POST['newEmail'];
         $username = $_POST['newUsername'];
         $password = $_POST['password'];
-        $isAdmin = $_POST['checkAdmin'];
+        if(isset($_POST['checkAdmin'])){
+            $isAdmin = 1;
+        }
+        else{
+            $isAdmin = 0;
+        }
 
         //We are using 'mysqli_real_escape_string()' to help prevent against SQL Injection.
         //This function will put backslashes in front of potentially unsafe characters (' " `).
@@ -22,8 +27,7 @@ if(!empty($_POST['newFirstName']) && !empty($_POST['newFirstName']) && !empty($_
         $jobTitle = mysqli_real_escape_string($connect, $_POST['newJobTitle']);
         $email = mysqli_real_escape_string($connect, $_POST['newEmail']);
         $username = mysqli_real_escape_string($connect, $_POST['newUsername']);
-        $password = mysqli_real_escape_string($connect, $_POST['password']);
-        $isAdmin = mysqli_real_escape_string($connect, $_POST['checkAdmin']);
+        $password = password_hash(mysqli_real_escape_string($connect, $_POST['password']), PASSWORD_BCRYPT);
 
         //This is the SQL query that we are going to use to ensure that the username and password are correct.
         $SQL = "INSERT INTO `UserDetails`(`firstName`, `lastName`, `jobTitle`, `email`, `username`, `password`, `isAdmin`) 

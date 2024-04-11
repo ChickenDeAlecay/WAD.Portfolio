@@ -34,7 +34,7 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6LcfI54pAAAAAAQsp0Y9UcaCS18c-lERTvgSlOOK"></script>
 
     <script>
-
+/*
       grecaptcha.ready(function() {
         grecaptcha.execute('6LcfI54pAAAAAAQsp0Y9UcaCS18c-lERTvgSlOOK', { action: 'login' } ).then(function (token) {  
           $('#formLogin').submit(function (event) {
@@ -58,6 +58,7 @@
           });
         });
       });
+      */
     </script>
 
 </body>
