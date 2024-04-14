@@ -27,14 +27,14 @@ if(!empty($_POST['newFirstName']) && !empty($_POST['newFirstName']) && !empty($_
         $jobTitle = mysqli_real_escape_string($connect, $_POST['newJobTitle']);
         $email = mysqli_real_escape_string($connect, $_POST['newEmail']);
         $username = mysqli_real_escape_string($connect, $_POST['newUsername']);
-        $password = password_hash(mysqli_real_escape_string($connect, $_POST['password']), PASSWORD_BCRYPT);
+        $password = md5(mysqli_real_escape_string($connect, $_POST['password']));
 
         //This is the SQL query that we are going to use to ensure that the username and password are correct.
-        $SQL = "INSERT INTO `UserDetails`(`firstName`, `lastName`, `jobTitle`, `email`, `username`, `password`, `isAdmin`) 
+        $SQL = "INSERT INTO 'UserDetails' (firstName, lastName, jobTitle, email, username, password, isAdmin) 
         VALUES ('$firstName','$lastName','$jobTitle','$email,'$username','$password','$isAdmin')";
 
         //This will run the query in our database using the database connection from 'connect.php'.
-        $query = mysqli_query($connect, $SQL);
+        mysqli_query($connect, $SQL);
 }else{
     //If the credentials were not entered,
     //we will send the user back to the login page with an error message.

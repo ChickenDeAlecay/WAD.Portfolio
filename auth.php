@@ -33,12 +33,10 @@
         $username = mysqli_real_escape_string($connect, $_POST['username']);
         $password = mysqli_real_escape_string($connect, $_POST['password']);
 
-        $hashedPassword = password_hash($password, CRYPT_BLOWFISH);
-
-        echo($hashedPassword);
+        $hashedPassword = md5($password);
 
         //This is the SQL query that we are going to use to ensure that the username and password are correct.
-        $SQL = "SELECT * FROM `UserDetails` WHERE username = '$username'";    
+        $SQL = "SELECT * FROM `UserDetails` WHERE username = '$username' AND password = '$hashedPassword'";    
 
         //This will run the query in our database using the database connection from 'connect.php'.
         $query = mysqli_query($connect, $SQL);
@@ -49,7 +47,6 @@
         {
             $row = mysqli_fetch_assoc($query);
 
-            if(!password_verify($hashedPassword, $row['password'])) {
                 session_start();
                 //We are using sessions to store information, so we can access them across multiple pages.
                 //All session data is stored on the server and cannot be modified like a cookie.
@@ -71,14 +68,6 @@
                 header("Location: homepage.php");
                 
                 echo true;
-            }else{
-                //If the credentials were not entered or incorrect,
-                //we will send the user back to the login page with an error message.
-                $errorMessage = urlencode("Invalid Username or Password1");
-                header("Location: login.php?msg=" . $errorMessage);
-
-                die();
-            }
             
         }else{
             //If the credentials were not entered or incorrect,
