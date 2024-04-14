@@ -66,13 +66,11 @@
 
                 //Redirect the authenticated user to the index page.
                 header("Location: homepage.php");
-                
-                echo true;
             
         }else{
             //If the credentials were not entered or incorrect,
             //we will send the user back to the login page with an error message.
-            $errorMessage = urlencode("Invalid Username or Password2");
+            $errorMessage = urlencode("Invalid Username or Password");
             header("Location: login.php?msg=" . $errorMessage);
 
             die();

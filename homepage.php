@@ -47,21 +47,33 @@ if(isset($_SESSION['userID'])){
         </div>
       </div>
     </nav>
+    <body>    
+        <h2>Hello, <?php echo $_SESSION['firstName'];?></h2>
+        <div class="content-wrap">
+          <div class="container clearfix">
+            <div class="bottommargin clearfix">
+              <div class="row">
+            <div class="p-3">Assigned Courses</div>
     </html>
+
   <?php
+    $userID = $_SESSION['userID'];
+    $queryRelational = "SELECT * FROM RelationalTable WHERE UserID = $userID";
+    $resultRelational = mysqli_query($connect, $queryRelational);
 
-    }
+    if(mysqli_num_rows($resultRelational) > 0){
+      while($rowRelational = mysqli_fetch_assoc($resultRelational)){
 
-    $SQL = "SELECT * FROM Courses";
-    $result = mysqli_query($connect, $SQL);
+        $CourseID = $rowRelational["CourseID"];
+        $queryCourses = "SELECT * FROM Courses WHERE CourseID = $CourseID";
+        $resultCourse = mysqli_query($connect, $queryCourses);
 
-    if(mysqli_num_rows($result) > 0){
-      while($row = mysqli_fetch_assoc($result)){
-        $courseName = $row["CourseName"];
-        $courseDescription = $row["CourseDescription"];
-        $userCount = $row["UserCount"];
-        $EstimatedTime = $row["EstimatedTime"];
-        $link = $row["Link"];
+        $rowCourse = mysqli_fetch_assoc($resultCourse);
+        $courseName = $rowCourse["CourseName"];
+        $courseDescription = $rowCourse["CourseDescription"];
+        $userCount = $rowCourse["UserCount"];
+        $EstimatedTime = $rowCourse["EstimatedTime"];
+        $link = $rowCourse["Link"];
 
         echo '<div class="col-sm-6 col-md-3">
                     <div class="caption">
@@ -80,3 +92,7 @@ if(isset($_SESSION['userID'])){
         </div>
       </body>
     </html>
+
+    <?php
+}
+?>
