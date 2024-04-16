@@ -25,23 +25,16 @@
    }
 
         //These two variables with contain the username and the password that the user entered on the login page.
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        //We are using 'mysqli_real_escape_string()' to help prevent against SQL Injection.
-        //This function will put backslashes in front of potentially unsafe characters (' " `).
         $username = mysqli_real_escape_string($connect, $_POST['username']);
-        $password = mysqli_real_escape_string($connect, $_POST['password']);
-
-        $hashedPassword = md5($password);
+        $password = $_POST['password'];
 
         //This is the SQL query that we are going to use to ensure that the username and password are correct.
        // $SQL = "SELECT * FROM `UserDetails` WHERE username = '$username' AND password = '$hashedPassword'";   
         
-        $stmt = $connect->prepare("SELECT * FROM `UserDetails` WHERE username = ? AND password = ?");
+        $stmt = $connect->prepare("SELECT * FROM `UserDetails` WHERE username = ?");
 
         // Bind parameters
-        $stmt->bind_param("ss", $username, $hashedPassword);
+        $stmt->bind_param("s", $username);
 
         // Execute the prepared statement
         $stmt->execute();
@@ -54,27 +47,35 @@
         if ($result->num_rows == 1)
         {
                 $row = $result->fetch_assoc();
+                if (password_verify($password, $row['password'])) {
+                    session_start();
+                    //We are using sessions to store information, so we can access them across multiple pages.
+                    //All session data is stored on the server and cannot be modified like a cookie.
+                    $_SESSION['userID'] = $row['userID'];
 
-                session_start();
-                //We are using sessions to store information, so we can access them across multiple pages.
-                //All session data is stored on the server and cannot be modified like a cookie.
-                $_SESSION['userID'] = $row['userID'];
+                    $_SESSION['username'] = $row['username'];
 
-                $_SESSION['username'] = $row['username'];
+                    $_SESSION['email'] = $row['email'];
 
-                $_SESSION['email'] = $row['email'];
+                    $_SESSION['firstName'] = $row['firstName'];
 
-                $_SESSION['firstName'] = $row['firstName'];
+                    $_SESSION['lastName'] = $row['lastName'];
 
-                $_SESSION['lastName'] = $row['lastName'];
+                    $_SESSION['jobTitle'] = $row['jobTitle'];
 
-                $_SESSION['jobTitle'] = $row['jobTitle'];
+                    $_SESSION['isAdmin'] = $row['isAdmin'];
 
-                $_SESSION['isAdmin'] = $row['isAdmin'];
+                    //Redirect the authenticated user to the index page.
+                    // header("Location: homepage.php");
+                    die("1");
+                } else {
+                    //If the credentials were not entered or incorrect,
+                    //we will send the user back to the login page with an error message.
+                    $errorMessage = urlencode("Invalid Username or Password");
+                    header("Location: login.php?msg=" . $errorMessage);
 
-                //Redirect the authenticated user to the index page.
-                // header("Location: homepage.php");
-                die("1");
+                    die();
+                }
             
         }else{
             //If the credentials were not entered or incorrect,
