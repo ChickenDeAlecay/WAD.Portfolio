@@ -36,16 +36,24 @@
         $hashedPassword = md5($password);
 
         //This is the SQL query that we are going to use to ensure that the username and password are correct.
-        $SQL = "SELECT * FROM `UserDetails` WHERE username = '$username' AND password = '$hashedPassword'";    
+       // $SQL = "SELECT * FROM `UserDetails` WHERE username = '$username' AND password = '$hashedPassword'";   
+        
+        $stmt = $connect->prepare("SELECT * FROM `UserDetails` WHERE username = ? AND password = ?");
+
+        // Bind parameters
+        $stmt->bind_param("ss", $username, $hashedPassword);
+
+        // Execute the prepared statement
+        $stmt->execute();
 
         //This will run the query in our database using the database connection from 'connect.php'.
-        $query = mysqli_query($connect, $SQL);
+        $result = $stmt->get_result();
 
         //We can check if a match was found by checking if a single row was
         //returned to us from the database using the 'mysqli_num_rows()' function.
-        if (mysqli_num_rows($query) == 1)
+        if ($result->num_rows == 1)
         {
-            $row = mysqli_fetch_assoc($query);
+                $row = $result->fetch_assoc();
 
                 session_start();
                 //We are using sessions to store information, so we can access them across multiple pages.
@@ -76,6 +84,6 @@
 
             die();
         }
-
+        $stmt->close();
 
 ?>
