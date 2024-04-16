@@ -52,7 +52,6 @@ if(isset($_SESSION['userID'])){
           <div class="container clearfix">
             <div class="bottommargin clearfix">
               <div class="row">
-            <div class="h3">Assigned Courses</div>
     </html>
 
   <?php
@@ -61,6 +60,10 @@ if(isset($_SESSION['userID'])){
     $resultRelational = mysqli_query($connect, $queryRelational);
 
     $selectedCourseIDs = [];
+
+    echo '<div class="row">';
+    echo '<div class="col-md-6">';
+    echo '<div class="h3">Assigned Courses</div>';
     if(mysqli_num_rows($resultRelational) > 0){
       while($rowRelational = mysqli_fetch_assoc($resultRelational)){
 
@@ -79,8 +82,9 @@ if(isset($_SESSION['userID'])){
         echo '<div class="col-sm-6 col-md-3">
                 <div class="course-box">
                     <div class="caption">
-                        <h5>'.$courseName.'</h5>
+                        <h5 style="text-align:center;">'.$courseName.'</h5>
                         <p>'.$courseDescription.'</p>
+                        <p>Estimated Time: '.$EstimatedTime.'hrs User Count: '.$userCount.'</p>
                         <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
                     </div>
                 </div>
@@ -88,10 +92,14 @@ if(isset($_SESSION['userID'])){
       }
     }
 
+    
+echo '</div>';
+
     $selectedCourseIDsString = implode(',', $selectedCourseIDs);
     $queryCoursesNotSelected = "SELECT * FROM Courses WHERE CourseID NOT IN ($selectedCourseIDsString)";
     $resultCoursesNotSelected = mysqli_query($connect, $queryCoursesNotSelected);
 
+    echo '<div class="col-md-6">';
     echo '<div class="h3">Unassigned Courses</div>';
     while($rowCourseNotSelected = mysqli_fetch_assoc($resultCoursesNotSelected)){
       $courseName = $rowCourseNotSelected["CourseName"];
@@ -102,13 +110,17 @@ if(isset($_SESSION['userID'])){
       echo '<div class="col-sm-6 col-md-3">
               <div class="course-box">
                   <div class="caption">
-                      <h5>'.$courseName.'</h5>
+                      <h5 style="text-align:center;">'.$courseName.'</h5>
                       <p>'.$courseDescription.'</p>
+                      <p>Estimated Time: '.$EstimatedTime.'hrs User Count: '.$userCount.'</p>
                       <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
                   </div>
               </div>
           </div>';
     }
+
+    echo '</div>';
+    echo '</div>';
 
     ?>
 
