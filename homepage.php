@@ -73,6 +73,7 @@ if(isset($_SESSION['userID'])){
         $resultCourse = mysqli_query($connect, $queryCourses);
 
         $rowCourse = mysqli_fetch_assoc($resultCourse);
+        $courseID = $rowCourse["CourseID"];
         $courseName = $rowCourse["CourseName"];
         $courseDescription = $rowCourse["CourseDescription"];
         $userCount = $rowCourse["UserCount"];
@@ -86,6 +87,7 @@ if(isset($_SESSION['userID'])){
                         <p>'.$courseDescription.'</p>
                         <p>Estimated Time: '.$EstimatedTime.'hrs User Count: '.$userCount.'</p>
                         <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
+                        <a href="unassign.php?courseId='.$courseID.'" class="btn btn-danger btn-lg btn-block" role="button"><strong>Unassign Course</strong></a>
                     </div>
                 </div>
             </div>';
@@ -102,18 +104,18 @@ echo '</div>';
     echo '<div class="col-md-6">';
     echo '<div class="h3">Unassigned Courses</div>';
     while($rowCourseNotSelected = mysqli_fetch_assoc($resultCoursesNotSelected)){
+      $courseID = $rowCourseNotSelected["CourseID"];
       $courseName = $rowCourseNotSelected["CourseName"];
       $courseDescription = $rowCourseNotSelected["CourseDescription"];
       $userCount = $rowCourseNotSelected["UserCount"];
       $EstimatedTime = $rowCourseNotSelected["EstimatedTime"];
-      $link = $rowCourseNotSelected["Link"];
       echo '<div class="col-sm-6 col-md-3">
               <div class="course-box">
                   <div class="caption">
                       <h5 style="text-align:center;">'.$courseName.'</h5>
                       <p>'.$courseDescription.'</p>
                       <p>Estimated Time: '.$EstimatedTime.'hrs User Count: '.$userCount.'</p>
-                      <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
+                      <a href="assign.php?courseId='.$courseID.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
                   </div>
               </div>
           </div>';
