@@ -56,8 +56,10 @@ if(isset($_SESSION['userID'])){
 
   <?php
     $userID = $_SESSION['userID'];
-    $queryRelational = "SELECT * FROM RelationalTable WHERE UserID = $userID";
-    $resultRelational = mysqli_query($connect, $queryRelational);
+    $stmt = $connect->prepare("SELECT * FROM RelationalTable WHERE UserID = ?");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $resultRelational = $stmt->get_result();
 
     $selectedCourseIDs = [];
 
@@ -69,8 +71,11 @@ if(isset($_SESSION['userID'])){
 
         $CourseID = $rowRelational["CourseID"];
         $selectedCourseIDs[] = $CourseID;
-        $queryCourses = "SELECT * FROM Courses WHERE CourseID = $CourseID";
-        $resultCourse = mysqli_query($connect, $queryCourses);
+        
+        $stmt = $connect->prepare("SELECT * FROM Courses WHERE CourseID = ?");
+        $stmt->bind_param("i", $CourseID);
+        $stmt->execute();
+        $resultCourse = $stmt->get_result();
 
         $rowCourse = mysqli_fetch_assoc($resultCourse);
         $courseID = $rowCourse["CourseID"];
@@ -85,7 +90,7 @@ if(isset($_SESSION['userID'])){
                     <div class="caption">
                         <h5 style="text-align:center;">'.$courseName.'</h5>
                         <p>'.$courseDescription.'</p>
-                        <p>Estimated Time: '.$EstimatedTime.'hrs User Count: '.$userCount.'</p>
+                        <p>Length: '.$EstimatedTime.'hrs Users: '.$userCount.'</p>
                         <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
                         <a href="unassign.php?courseId='.$courseID.'" class="btn btn-danger btn-lg btn-block" role="button"><strong>Unassign Course</strong></a>
                     </div>
@@ -97,9 +102,16 @@ if(isset($_SESSION['userID'])){
     
 echo '</div>';
 
-    $selectedCourseIDsString = implode(',', $selectedCourseIDs);
-    $queryCoursesNotSelected = "SELECT * FROM Courses WHERE CourseID NOT IN ($selectedCourseIDsString)";
-    $resultCoursesNotSelected = mysqli_query($connect, $queryCoursesNotSelected);
+    if (!empty($selectedCourseIDs)) {
+      $placeholders = implode(',', array_fill(0, count($selectedCourseIDs), '?'));
+      $stmt = $connect->prepare("SELECT * FROM Courses WHERE CourseID NOT IN ($placeholders)");
+      $types = str_repeat('i', count($selectedCourseIDs));
+      $stmt->bind_param($types, ...$selectedCourseIDs);
+    } else {
+      $stmt = $connect->prepare("SELECT * FROM Courses");
+    }
+    $stmt->execute();
+    $resultCoursesNotSelected = $stmt->get_result();
 
     echo '<div class="col-md-6">';
     echo '<div class="h3">Unassigned Courses</div>';
@@ -114,7 +126,7 @@ echo '</div>';
                   <div class="caption">
                       <h5 style="text-align:center;">'.$courseName.'</h5>
                       <p>'.$courseDescription.'</p>
-                      <p>Estimated Time: '.$EstimatedTime.'hrs User Count: '.$userCount.'</p>
+                      <p>Length: '.$EstimatedTime.'hrs Users: '.$userCount.'</p>
                       <a href="assign.php?courseId='.$courseID.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
                   </div>
               </div>
