@@ -48,12 +48,11 @@ if(isset($_SESSION['userID'])){
       </div>
     </nav>
     <body>    
-        <h2>Hello, <?php echo $_SESSION['firstName'];?></h2>
         <div class="content-wrap">
           <div class="container clearfix">
             <div class="bottommargin clearfix">
               <div class="row">
-            <div class="p-3">Assigned Courses</div>
+            <div class="h3">Assigned Courses</div>
     </html>
 
   <?php
@@ -61,10 +60,12 @@ if(isset($_SESSION['userID'])){
     $queryRelational = "SELECT * FROM RelationalTable WHERE UserID = $userID";
     $resultRelational = mysqli_query($connect, $queryRelational);
 
+    $selectedCourseIDs = [];
     if(mysqli_num_rows($resultRelational) > 0){
       while($rowRelational = mysqli_fetch_assoc($resultRelational)){
 
         $CourseID = $rowRelational["CourseID"];
+        $selectedCourseIDs[] = $CourseID;
         $queryCourses = "SELECT * FROM Courses WHERE CourseID = $CourseID";
         $resultCourse = mysqli_query($connect, $queryCourses);
 
@@ -76,11 +77,37 @@ if(isset($_SESSION['userID'])){
         $link = $rowCourse["Link"];
 
         echo '<div class="col-sm-6 col-md-3">
+                <div class="course-box">
                     <div class="caption">
-                    <h5>'.$courseName.'</h5>
-                    <p>'.$courseDescription.'</p>
-                    <a href="'.$link.'" class=btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a> ';
+                        <h5>'.$courseName.'</h5>
+                        <p>'.$courseDescription.'</p>
+                        <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
+                    </div>
+                </div>
+            </div>';
       }
+    }
+
+    $selectedCourseIDsString = implode(',', $selectedCourseIDs);
+    $queryCoursesNotSelected = "SELECT * FROM Courses WHERE CourseID NOT IN ($selectedCourseIDsString)";
+    $resultCoursesNotSelected = mysqli_query($connect, $queryCoursesNotSelected);
+
+    echo '<div class="h3">Unassigned Courses</div>';
+    while($rowCourseNotSelected = mysqli_fetch_assoc($resultCoursesNotSelected)){
+      $courseName = $rowCourseNotSelected["CourseName"];
+      $courseDescription = $rowCourseNotSelected["CourseDescription"];
+      $userCount = $rowCourseNotSelected["UserCount"];
+      $EstimatedTime = $rowCourseNotSelected["EstimatedTime"];
+      $link = $rowCourseNotSelected["Link"];
+      echo '<div class="col-sm-6 col-md-3">
+              <div class="course-box">
+                  <div class="caption">
+                      <h5>'.$courseName.'</h5>
+                      <p>'.$courseDescription.'</p>
+                      <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
+                  </div>
+              </div>
+          </div>';
     }
 
     ?>
