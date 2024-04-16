@@ -34,31 +34,33 @@
     <script src="https://www.google.com/recaptcha/api.js?render=6LcfI54pAAAAAAQsp0Y9UcaCS18c-lERTvgSlOOK"></script>
 
     <script>
-/*
-      grecaptcha.ready(function() {
-        grecaptcha.execute('6LcfI54pAAAAAAQsp0Y9UcaCS18c-lERTvgSlOOK', { action: 'login' } ).then(function (token) {  
-          $('#formLogin').submit(function (event) {
-            event.preventDefault();
-              $.ajax({
-                url: './auth.php',
-                type: 'post',
-                data: {
-                  username: $('input[name="username"]').val(),
-                  password: $('input[name="password"]').val(),
-                  token: token
-                  },
-                  success: function (response) {
-                    if(response == '1'){
-                      window.location.href = './homepage.php';
-                    } else {
-                      alert(response);
+      $('#formLogin').submit(function (event) {
+        event.preventDefault();
+
+        grecaptcha.ready(function() {
+          grecaptcha.execute('6LcfI54pAAAAAAQsp0Y9UcaCS18c-lERTvgSlOOK', { action: 'login' } ).then(function (token) {  
+            
+
+                $.ajax({
+                  url: './auth.php',
+                  type: 'post',
+                  data: {
+                    username: $('input[name="username"]').val(),
+                    password: $('input[name="password"]').val(),
+                    token: token
+                    },
+                    success: function (response) {
+                      if(response == '1'){
+                        window.location.href = './homepage.php';
+                      } else {
+                        alert(response);
+                      }
                     }
-                    }
-              });
+                });
+            });
           });
         });
-      });
-      */
+      
     </script>
 
 </body>

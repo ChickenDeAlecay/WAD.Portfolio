@@ -9,20 +9,20 @@
         //If the credentials were not entered or incorrect,
         //we will send the user back to the login page with an error message.
         $errorMessage = urlencode("Username or Password not provided");
-        header("Location: index.php?msg=" . $errorMessage);
+        header("Location: login.php?msg=" . $errorMessage);
         die();
     }
 
-    //$captcha = $_POST['token'];
-    //$secretKey = '6LcfI54pAAAAAEfZArTIEPY7L1hUq8TKTX3M_134';
-    //$reCAPTCHA = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha)));
+    $captcha = $_POST['token'];
+    $secretKey = '6LcfI54pAAAAAEfZArTIEPY7L1hUq8TKTX3M_134';
+    $reCAPTCHA = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha)));
 
-    // var_dump($reCAPTCHA);
+    //var_dump($reCAPTCHA);
 
-    //if ($reCAPTCHA->score <= 0.5)
-    //{
-   //     die("You are a bot!");
-   // }
+    if ($reCAPTCHA->score <= 0.5)
+    {
+       die("You are a bot!");
+   }
 
         //These two variables with contain the username and the password that the user entered on the login page.
         $username = $_POST['username'];
@@ -65,7 +65,8 @@
                 $_SESSION['isAdmin'] = $row['isAdmin'];
 
                 //Redirect the authenticated user to the index page.
-                header("Location: homepage.php");
+                // header("Location: homepage.php");
+                die("1");
             
         }else{
             //If the credentials were not entered or incorrect,
