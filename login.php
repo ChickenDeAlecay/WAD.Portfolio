@@ -50,7 +50,7 @@
                     token: token
                     },
                     success: function (response) {
-                      if(response == '1'){
+                      if(response.trim() == '1'){
                         window.location.href = './homepage.php';
                       } else {
                         alert(response);
