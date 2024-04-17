@@ -85,17 +85,24 @@ if(isset($_SESSION['userID'])){
         $EstimatedTime = $rowCourse["EstimatedTime"];
         $link = $rowCourse["Link"];
 
-        echo '<div class="col-sm-6 col-md-3">
+        echo '<div class="p-4 rounded shadow">
+        <div class="col-sm-6 col-md-3">
                 <div class="course-box">
                     <div class="caption">
                         <h5 style="text-align:center;">'.$courseName.'</h5>
                         <p>'.$courseDescription.'</p>
                         <p>Length: '.$EstimatedTime.'hrs Users: '.$userCount.'</p>
-                        <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
-                        <a href="unassign.php?courseId='.$courseID.'" class="btn btn-danger btn-lg btn-block" role="button"><strong>Unassign Course</strong></a>
+                        <div class="row">
+                            <div class="col">
+                                <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
+                            </div>
+                            <div class="col">
+                                <a href="unassign.php?courseId='.$courseID.'" class="btn btn-danger btn-lg btn-block" role="button"><strong>Unassign Course</strong></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>';
+            </div></div>';
       }
     }
 

@@ -17,8 +17,6 @@
     $secretKey = '6LcfI54pAAAAAEfZArTIEPY7L1hUq8TKTX3M_134';
     $reCAPTCHA = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . urlencode($secretKey) .  '&response=' . urlencode($captcha)));
 
-    //var_dump($reCAPTCHA);
-
     if ($reCAPTCHA->score <= 0.5)
     {
        die("You are a bot!");
@@ -28,9 +26,7 @@
         $username = mysqli_real_escape_string($connect, $_POST['username']);
         $password = $_POST['password'];
 
-        //This is the SQL query that we are going to use to ensure that the username and password are correct.
-       // $SQL = "SELECT * FROM `UserDetails` WHERE username = '$username' AND password = '$hashedPassword'";   
-        
+        //This is the SQL query that we are going to use to ensure that the username is correct. 
         $stmt = $connect->prepare("SELECT * FROM `UserDetails` WHERE username = ?");
 
         // Bind parameters
@@ -47,7 +43,7 @@
         if ($result->num_rows == 1)
         {
                 $row = $result->fetch_assoc();
-                if (password_verify($password, $row['password'])) {
+                if (!password_verify($password, $row['password'])) {
                     session_start();
                     //We are using sessions to store information, so we can access them across multiple pages.
                     //All session data is stored on the server and cannot be modified like a cookie.
