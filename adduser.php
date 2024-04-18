@@ -51,3 +51,5 @@ $stmt = $connect->prepare($SQL);
 $stmt->bind_param("ssssssi", $firstName, $lastName, $jobTitle, $email, $username, $password, $isAdmin);
 $stmt->execute();
 $stmt->close();
+
+header("Location: register.php");

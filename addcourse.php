@@ -35,4 +35,6 @@ $stmt = $connect->prepare($SQL);
 $stmt->bind_param("ssi", $courseName, $courseDescription, $estimatedTime);
 $stmt->execute();
 $stmt->close();
+
+header("Location: createcourse.php");
 ?>

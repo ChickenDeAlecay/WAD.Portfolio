@@ -5,7 +5,7 @@ session_start();
 if (isset($_SESSION['userID'])) {
 
   require_once("_connect.php");
-
+  require_once("updateusercount.php");
 
 ?>
 
