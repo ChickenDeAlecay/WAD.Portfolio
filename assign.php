@@ -17,16 +17,16 @@ $userId = $_SESSION['userID'];
 $sql = "INSERT INTO RelationalTable (CourseID, UserID) VALUES (?, ?)";
 
 // Prepare the statement
-if($stmt = mysqli_prepare($connect, $sql)){
+if ($stmt = mysqli_prepare($connect, $sql)) {
     // Bind variables to the prepared statement as parameters
     mysqli_stmt_bind_param($stmt, "ii", $courseId, $userId);
-    
+
     // Attempt to execute the prepared statement
-    if(mysqli_stmt_execute($stmt)){
+    if (mysqli_stmt_execute($stmt)) {
         // Redirect to homepage
         header("Location: homepage.php");
         exit();
-    } else{
+    } else {
         echo "Something went wrong. Please try again later.";
     }
 }
@@ -36,4 +36,3 @@ mysqli_stmt_close($stmt);
 
 // Close connection
 mysqli_close($connect);
-?>
