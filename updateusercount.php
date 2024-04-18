@@ -22,6 +22,4 @@ while ($row = $result->fetch_assoc()) {
     $stmt3->bind_param("ii", $userCount, $courseID);
     $stmt3->execute();
 }
-
-echo "User counts updated successfully.";
 ?>
