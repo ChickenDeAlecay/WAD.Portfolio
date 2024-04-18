@@ -94,10 +94,10 @@ if (isset($_SESSION['userID'])) {
                       <p>' . $courseDescription . '</p>
                         <div class="row">
                           <div class="col">
-                            <p>Length: ' . $EstimatedTime . '</p>
+                            <p>Length: ' . $EstimatedTime . 'hrs</p>
                           </div>
                           <div class="col">
-                            <p>hrs Users: ' . $userCount . '</p>
+                            <p>Users: ' . $userCount . '</p>
                           </div>
                         </div>
                         <div class="row">
@@ -143,10 +143,10 @@ if (isset($_SESSION['userID'])) {
                     <p>' . $courseDescription . '</p>
                       <div class="row">
                         <div class="col">
-                          <p>Length: ' . $EstimatedTime . '</p>
+                          <p>Length: ' . $EstimatedTime . 'hrs</p>
                         </div>
                         <div class="col">
-                          <p>hrs Users: ' . $userCount . '</p>
+                          <p>Users: ' . $userCount . '</p>
                         </div>
                       </div>
                       <div class="row">
