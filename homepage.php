@@ -86,23 +86,29 @@ if(isset($_SESSION['userID'])){
         $link = $rowCourse["Link"];
 
         echo '<div class="p-4 rounded shadow">
-        <div class="col-sm-6 col-md-3">
                 <div class="course-box">
-                    <div class="caption">
-                        <h5 style="text-align:center;">'.$courseName.'</h5>
-                        <p>'.$courseDescription.'</p>
-                        <p>Length: '.$EstimatedTime.'hrs Users: '.$userCount.'</p>
+                  <div class="caption">
+                    <h5 style="text-align:center;">'.$courseName.'</h5>
+                      <p>'.$courseDescription.'</p>
                         <div class="row">
-                            <div class="col">
-                                <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
-                            </div>
-                            <div class="col">
-                                <a href="unassign.php?courseId='.$courseID.'" class="btn btn-danger btn-lg btn-block" role="button"><strong>Unassign Course</strong></a>
-                            </div>
+                          <div class="col">
+                            <p>Length: '.$EstimatedTime.'</p>
+                          </div>
+                          <div class="col">
+                            <p>hrs Users: '.$userCount.'</p>
+                          </div>
                         </div>
-                    </div>
+                        <div class="row">
+                          <div class="col">
+                            <a href="'.$link.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Go to Course</strong></a>
+                          </div>
+                          <div class="col">
+                            <a href="unassign.php?courseId='.$courseID.'" class="btn btn-danger btn-lg btn-block" role="button"><strong>Unassign Course</strong></a>
+                          </div>
+                        </div>
+                  </div>
                 </div>
-            </div></div>';
+              </div>';
       }
     }
 
@@ -128,16 +134,27 @@ echo '</div>';
       $courseDescription = $rowCourseNotSelected["CourseDescription"];
       $userCount = $rowCourseNotSelected["UserCount"];
       $EstimatedTime = $rowCourseNotSelected["EstimatedTime"];
-      echo '<div class="col-sm-6 col-md-3">
+      echo '<div class="p-4 rounded shadow">
               <div class="course-box">
-                  <div class="caption">
-                      <h5 style="text-align:center;">'.$courseName.'</h5>
-                      <p>'.$courseDescription.'</p>
-                      <p>Length: '.$EstimatedTime.'hrs Users: '.$userCount.'</p>
-                      <a href="assign.php?courseId='.$courseID.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
-                  </div>
+                <div class="caption">
+                  <h5 style="text-align:center;">'.$courseName.'</h5>
+                    <p>'.$courseDescription.'</p>
+                      <div class="row">
+                        <div class="col">
+                          <p>Length: '.$EstimatedTime.'</p>
+                        </div>
+                        <div class="col">
+                          <p>hrs Users: '.$userCount.'</p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <a href="assign.php?courseId='.$courseID.'" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
+                        </div>
+                      </div>
+                </div>
               </div>
-          </div>';
+            </div>';
     }
 
     echo '</div>';

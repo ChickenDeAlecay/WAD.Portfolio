@@ -6,10 +6,9 @@
     //Check that the user has provided both a username and a password.
     if (!isset($_POST['username']) || !isset($_POST['password']))
     {
-        //If the credentials were not entered or incorrect,
-        //we will send the user back to the login page with an error message.
-        $errorMessage = urlencode("Username or Password not provided");
-        header("Location: login.php?msg=" . $errorMessage);
+        //If the credentials were not entered or incorrect
+        echo "Please enter both a username and password";
+
         die();
     }
 
@@ -24,7 +23,7 @@
 
         //These two variables with contain the username and the password that the user entered on the login page.
         $username = mysqli_real_escape_string($connect, $_POST['username']);
-        $password = $_POST['password'];
+        $password = trim($_POST['password']);
 
         //This is the SQL query that we are going to use to ensure that the username is correct. 
         $stmt = $connect->prepare("SELECT * FROM `UserDetails` WHERE username = ?");
@@ -39,10 +38,13 @@
         $result = $stmt->get_result();
 
         //We can check if a match was found by checking if a single row was
-        //returned to us from the database using the 'mysqli_num_rows()' function.
         if ($result->num_rows == 1)
         {
                 $row = $result->fetch_assoc();
+
+                //echo "Form password: " . $password . "<br>";
+                //echo "Hashed password from database: " . $row['password'] . "<br>";
+
                 if (!password_verify($password, $row['password'])) {
                     session_start();
                     //We are using sessions to store information, so we can access them across multiple pages.
@@ -61,22 +63,19 @@
 
                     $_SESSION['isAdmin'] = $row['isAdmin'];
 
-                    //Redirect the authenticated user to the index page.
-                    // header("Location: homepage.php");
                     die("1");
                 } else {
-                    //If the credentials were not entered or incorrect,
-                    //we will send the user back to the login page with an error message.
-                    $errorMessage = urlencode("Invalid Username or Password");
+                    //If the credentials were not entered or incorrect
+
+                    //echo "Password verify result: " . (password_verify($password, $row['password']) ? 'true' : 'false') . "<br>";
+        
                     echo"Invalid Username or Password";
 
                     die();
                 }
             
         }else{
-            //If the credentials were not entered or incorrect,
-            //we will send the user back to the login page with an error message.
-            $errorMessage = urlencode("Invalid Username or Password");
+            //If the credentials were not entered or incorrect
             echo "Invalid Username or Password";
 
             die();
