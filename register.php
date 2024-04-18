@@ -24,10 +24,13 @@ if (isset($_SESSION['userID']) && isset($_SESSION['username'])) {
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="admindashboard.php">Home</a>
+            <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="registernewuser.php">Register User</a>
+            <a class="nav-link" href="register.php">Register User</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="createcourse.php">Create Course</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>

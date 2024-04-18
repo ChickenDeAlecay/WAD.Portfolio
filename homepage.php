@@ -34,7 +34,10 @@ if (isset($_SESSION['userID'])) {
           } else {
             echo '<li class="nav-item">
                     <a class="nav-link" href="register.php">Register User</a>
-                    </li>';
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="createcourse.php">Create Course</a>
+                  </li>';
           }
           ?>
           <li class="nav-item">
