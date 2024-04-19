@@ -139,7 +139,7 @@ if (isset($_SESSION['userID'])) {
     $courseName = $rowCourseNotSelected["CourseName"];
     $courseDescription = $rowCourseNotSelected["CourseDescription"];
     $userCount = $rowCourseNotSelected["UserCount"];
-    $MaxUsers = $rowCourse["MaxUsers"];
+    $MaxUsers = $rowCourseNotSelected["MaxUsers"];
     $EstimatedTime = $rowCourseNotSelected["EstimatedTime"];
     echo '<div class="p-4 rounded shadow">
               <div class="course-box">
