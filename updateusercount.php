@@ -1,8 +1,8 @@
 <?php
 require_once("_connect.php");
 
-// Fetch all unique course IDs from the RelationalTable
-$stmt = $connect->prepare("SELECT DISTINCT CourseID FROM RelationalTable");
+// Fetch all course IDs from the Courses table
+$stmt = $connect->prepare("SELECT CourseID FROM Courses");
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -10,7 +10,7 @@ while ($row = $result->fetch_assoc()) {
     $courseID = $row["CourseID"];
 
     // Count the number of unique user IDs associated with the course ID
-    $stmt2 = $connect->prepare("SELECT COUNT(DISTINCT UserID) as UserCount FROM RelationalTable WHERE CourseID = ?");
+    $stmt2 = $connect->prepare("SELECT COUNT(DISTINCT UserID) as UserCount FROM Courses LEFT JOIN RelationalTable ON Courses.CourseID = RelationalTable.CourseID WHERE Courses.CourseID = ?");
     $stmt2->bind_param("i", $courseID);
     $stmt2->execute();
     $result2 = $stmt2->get_result();
