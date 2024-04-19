@@ -33,10 +33,10 @@ if (isset($_SESSION['userID'])) {
           if ($_SESSION['isAdmin'] == 0) {
           } else {
             echo '<li class="nav-item">
-                    <a class="nav-link" href="register.php">Register User</a>
+                    <a class="nav-link" href="./CourseManagment/managecourses.php">Manage Courses</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="createcourse.php">Create Course</a>
+                    <a class="nav-link" href="./UserManagment/manageusers.php">Manage Users</a>
                   </li>';
           }
           ?>
@@ -87,6 +87,7 @@ if (isset($_SESSION['userID'])) {
       $courseName = $rowCourse["CourseName"];
       $courseDescription = $rowCourse["CourseDescription"];
       $userCount = $rowCourse["UserCount"];
+      $MaxUsers = $rowCourse["MaxUsers"];
       $EstimatedTime = $rowCourse["EstimatedTime"];
       $link = $rowCourse["Link"];
 
@@ -100,7 +101,7 @@ if (isset($_SESSION['userID'])) {
                             <p>Length: ' . $EstimatedTime . 'hrs</p>
                           </div>
                           <div class="col">
-                            <p>Users: ' . $userCount . '</p>
+                            <p>Users: ' . $userCount . '/' . $MaxUsers . '</p>
                           </div>
                         </div>
                         <div class="row">
@@ -138,6 +139,7 @@ if (isset($_SESSION['userID'])) {
     $courseName = $rowCourseNotSelected["CourseName"];
     $courseDescription = $rowCourseNotSelected["CourseDescription"];
     $userCount = $rowCourseNotSelected["UserCount"];
+    $MaxUsers = $rowCourse["MaxUsers"];
     $EstimatedTime = $rowCourseNotSelected["EstimatedTime"];
     echo '<div class="p-4 rounded shadow">
               <div class="course-box">
@@ -149,13 +151,17 @@ if (isset($_SESSION['userID'])) {
                           <p>Length: ' . $EstimatedTime . 'hrs</p>
                         </div>
                         <div class="col">
-                          <p>Users: ' . $userCount . '</p>
+                          <p>Users: ' . $userCount . '/' . $MaxUsers . '</p>
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <a href="assign.php?courseId=' . $courseID . '" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>
-                        </div>
+                      </div>';
+    echo '<div class="row">
+                        <div class="col">';
+    if ($userCount > $MaxUsers) {
+      echo '<button class="btn btn-success btn-lg btn-block" disabled><strong>Assign Course</strong></button>';
+    } else {
+      echo '<a href="assign.php?courseId=' . $courseID . '" class="btn btn-success btn-lg btn-block" role="button"><strong>Assign Course</strong></a>';
+    }
+    echo '</div>
                       </div>
                 </div>
               </div>

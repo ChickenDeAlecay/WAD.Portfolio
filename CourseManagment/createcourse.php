@@ -12,32 +12,37 @@ if (isset($_SESSION['userID']) && isset($_SESSION['username'])) {
     </head>
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Homepage</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.php">Register User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="createcourse.php">Create Course</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
-                    </li>
-                </ul>
-                <span class="navbar-text">
-                    Admin Dashboard
-                </span>
-            </div>
-        </div>
-    </nav>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Homepage</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../homepage.php">Home</a>
+          </li>
+          <?php
+          if ($_SESSION['isAdmin'] == 0) {
+          } else {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="./managecourses.php">Manage Courses</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="../UserManagment/manageusers.php">Manage Users</a>
+                  </li>';
+          }
+          ?>
+          <li class="nav-item">
+            <a class="nav-link" href="../logout.php">Logout</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          Training Platform
+        </span>
+      </div>
+    </div>
+  </nav>
 
     <body>
         <div class="container">
@@ -49,6 +54,10 @@ if (isset($_SESSION['userID']) && isset($_SESSION['username'])) {
                 <div class="mb-3 lg-2">
                     <label for="courseDescription" class="form-label">Course Description</label>
                     <textarea class="form-control" name="courseDescription"></textarea>
+                </div>
+                <div class="mb-3 lg-2">
+                    <label for="maxUsers" class="form-label">Max Users</label>
+                    <input type="number" class="form-control" name="maxUsers">
                 </div>
                 <div class="mb-3 lg-2">
                     <label for="estimatedTime" class="form-label">Estimated Time (hrs)</label>
