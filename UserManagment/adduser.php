@@ -57,5 +57,9 @@ function addUser($connect) {
     $stmt->execute();
     $stmt->close();
 
-    header("Location: register.php");
+    header("Location: createuser.php");
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    addUser($connect);
 }

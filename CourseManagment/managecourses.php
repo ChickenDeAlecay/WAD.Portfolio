@@ -50,7 +50,7 @@ require_once("../_connect.php");
 <body>
     <div class="container">
         <h1>Manage Courses</h1>
-        <a href="addcourse.php" class="btn btn-primary">Add Course</a>
+        <a href="createcourse.php" class="btn btn-primary">Add Course</a>
         <table class="table">
             <thead>
                 <tr>

@@ -16,37 +16,37 @@ if (isset($_SESSION['userID']) && isset($_SESSION['username'])) {
   </head>
 
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Homepage</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="homepage.php">Home</a>
-        </li>
-        <?php
-        if ($_SESSION['isAdmin'] == 0) {
-        } else {
-          echo '<li class="nav-item">
-                  <a class="nav-link" href="createcourse.php">Create Course</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="manageusers.php">Manage Users</a>
-                </li>';
-        }
-        ?>
-        <li class="nav-item">
-          <a class="nav-link" href="logout.php">Logout</a>
-        </li>
-      </ul>
-      <span class="navbar-text">
-        Training Platform
-      </span>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Homepage</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="../homepage.php">Home</a>
+          </li>
+          <?php
+          if ($_SESSION['isAdmin'] == 0) {
+          } else {
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="../CourseManagment/managecourses.php">Manage Courses</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="./manageusers.php">Manage Users</a>
+                  </li>';
+          }
+          ?>
+          <li class="nav-item">
+            <a class="nav-link" href="../logout.php">Logout</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+          Training Platform
+        </span>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
   <body>
     <div class="container">

@@ -50,7 +50,7 @@ require_once("../_connect.php");
 <body>
     <div class="container">
         <h1>Manage Users</h1>
-        <a href="adduser.php" class="btn btn-primary">Add User</a>
+        <a href="createuser.php" class="btn btn-primary">Add User</a>
         <table class="table">
             <thead>
                 <tr>

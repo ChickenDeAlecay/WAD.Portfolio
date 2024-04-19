@@ -28,7 +28,7 @@ function checkRequiredPostData($requiredFields) {
     }
 }
 
-function addUser($connect) {
+function addCourse($connect) {
     include("../_connect.php");
     checkRequiredPostData(['courseName', 'courseDescription', 'estimatedTime', 'maxUsers']);
     $escapedStrings = escapeStrings($connect, $_POST);
@@ -44,5 +44,9 @@ function addUser($connect) {
     $stmt->close();
 
     header("Location: createcourse.php");
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    addCourse($connect);
 }
 ?>
