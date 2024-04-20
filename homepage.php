@@ -86,6 +86,7 @@ if (isset($_SESSION['userID'])) {
       $courseID = $rowCourse["CourseID"];
       $courseName = $rowCourse["CourseName"];
       $courseDescription = $rowCourse["CourseDescription"];
+      $startDate = $rowCourse["StartDate"];
       $userCount = $rowCourse["UserCount"];
       $MaxUsers = $rowCourse["MaxUsers"];
       $EstimatedTime = $rowCourse["EstimatedTime"];
@@ -96,6 +97,7 @@ if (isset($_SESSION['userID'])) {
                   <div class="caption">
                     <h5 style="text-align:center;">' . $courseName . '</h5>
                       <p>' . $courseDescription . '</p>
+                      <td>Start Date: ' . $startDate . '</td>
                         <div class="row">
                           <div class="col">
                             <p>Length: ' . $EstimatedTime . 'hrs</p>
@@ -139,6 +141,7 @@ if (isset($_SESSION['userID'])) {
     $courseName = $rowCourseNotSelected["CourseName"];
     $courseDescription = $rowCourseNotSelected["CourseDescription"];
     $userCount = $rowCourseNotSelected["UserCount"];
+    $userCount = $rowCourseNotSelected["UserCount"];
     $MaxUsers = $rowCourseNotSelected["MaxUsers"];
     $EstimatedTime = $rowCourseNotSelected["EstimatedTime"];
     echo '<div class="p-4 rounded shadow">
@@ -146,6 +149,7 @@ if (isset($_SESSION['userID'])) {
                 <div class="caption">
                   <h5 style="text-align:center;">' . $courseName . '</h5>
                     <p>' . $courseDescription . '</p>
+                    <td>Start Date: ' . $startDate . '</td>
                       <div class="row">
                         <div class="col">
                           <p>Length: ' . $EstimatedTime . 'hrs</p>

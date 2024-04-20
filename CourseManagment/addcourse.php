@@ -30,16 +30,17 @@ function checkRequiredPostData($requiredFields) {
 
 function addCourse($connect) {
     include("../_connect.php");
-    checkRequiredPostData(['courseName', 'courseDescription', 'estimatedTime', 'maxUsers']);
+    checkRequiredPostData(['courseName', 'courseDescription', 'startDate', 'estimatedTime', 'maxUsers']);
     $escapedStrings = escapeStrings($connect, $_POST);
     $courseName = $escapedStrings['courseName'];
     $courseDescription = $escapedStrings['courseDescription'];
+    $startDate = $escapedStrings['startDate'];
     $estimatedTime = $escapedStrings['estimatedTime'];
     $maxUsers = $escapedStrings['maxUsers'];
-    $SQL = "INSERT INTO Courses (CourseName, CourseDescription, EstimatedTime, MaxUsers) 
-    VALUES (?, ?, ?, ?)";
+    $SQL = "INSERT INTO Courses (CourseName, CourseDescription, StartDate, EstimatedTime, MaxUsers) 
+    VALUES (?, ?, ?, ?, ?)";
     $stmt = $connect->prepare($SQL);
-    $stmt->bind_param("ssii", $courseName, $courseDescription, $estimatedTime, $maxUsers);
+    $stmt->bind_param("sssii", $courseName, $courseDescription, $startDate, $estimatedTime, $maxUsers);
     $stmt->execute();
     $stmt->close();
 
