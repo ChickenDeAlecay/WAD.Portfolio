@@ -19,11 +19,9 @@ if ($reCAPTCHA->score <= 0.5) {
     die("You are a bot!");
 }
 
-//These two variables with contain the username and the password that the user entered on the login page.
 $username = mysqli_real_escape_string($connect, $_POST['username']);
 $password = trim($_POST['password']);
 
-//This is the SQL query that we are going to use to ensure that the username is correct. 
 $stmt = $connect->prepare("SELECT * FROM `UserDetails` WHERE username = ?");
 
 // Bind parameters
@@ -32,20 +30,16 @@ $stmt->bind_param("s", $username);
 // Execute the prepared statement
 $stmt->execute();
 
-//This will run the query in our database using the database connection from 'connect.php'.
+//Run the query in our database
 $result = $stmt->get_result();
 
-//We can check if a match was found by checking if a single row was
+//check if a match was found
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
 
-    //echo "Form password: " . $password . "<br>";
-    //echo "Hashed password from database: " . $row['password'] . "<br>";
-
     if (password_verify($password, $row['password'])) {
         session_start();
-        //We are using sessions to store information, so we can access them across multiple pages.
-        //All session data is stored on the server and cannot be modified like a cookie.
+        //Store information using sessions
         $_SESSION['userID'] = $row['userID'];
 
         $_SESSION['username'] = $row['username'];
@@ -63,8 +57,6 @@ if ($result->num_rows == 1) {
         die("1");
     } else {
         //If the credentials were not entered or incorrect
-
-        //echo "Password verify result: " . (password_verify($password, $row['password']) ? 'true' : 'false') . "<br>";
 
         echo "Invalid Username or Password";
 
